@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.openmrs.module.openhmis.eventbasedbilling.api">
-	<class name="IBillingHandler" table="eventbill_handler">
+<hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api">
+	<class name="IBillingHandler" table="billableobj_handler">
 		<cache usage="read-write"/>
 
 		<id name="id" type="int" column="handler_id">

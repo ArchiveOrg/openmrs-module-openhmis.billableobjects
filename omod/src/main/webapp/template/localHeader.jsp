@@ -7,12 +7,12 @@
 	<li
 		<c:if test='<%= request.getRequestURI().contains("/manage") %>'>class="active"</c:if>>
 		<a
-		href="${pageContext.request.contextPath}/module/openhmis.eventbasedbilling/manage.form"><spring:message
-				code="openhmis.eventbasedbilling.manage" /></a>
+		href="${pageContext.request.contextPath}/module/openhmis.billableobjects/manage.form"><spring:message
+				code="openhmis.billableobjects.manage" /></a>
 	</li>
 	
 	<!-- Add further links here -->
 </ul>
 <h2>
-	<spring:message code="openhmis.eventbasedbilling.title" />
+	<spring:message code="openhmis.billableobjects.title" />
 </h2>
