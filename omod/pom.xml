@@ -4,14 +4,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>openhmis.eventbasedbilling</artifactId>
+		<artifactId>openhmis.billableobjects</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>openhmis.eventbasedbilling-omod</artifactId>
+	<artifactId>openhmis.billableobjects-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>Event Based Billing Module OMOD</name>
-	<description>OMOD project for EventBasedBilling</description>
+	<name>Billable Objects OMOD</name>
+	<description>OMOD project for Billable Objects</description>
 
 	<dependencies>
 

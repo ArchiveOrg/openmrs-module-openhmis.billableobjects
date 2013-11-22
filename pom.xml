@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>openhmis.eventbasedbilling</artifactId>
+	<artifactId>openhmis.billableobjects</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Event Based Billing Module</name>
-	<description>Create bills in response to system events</description>
+	<name>Billable Objects</name>
+	<description>Tracks bills for objects in the system, and provides interfaces to implement object-specific billing behaviour.</description>
 	<url>https://wiki.openmrs.org/display/docs/Event+Based+Billing+Module+Module</url>
 	
 	<developers>
