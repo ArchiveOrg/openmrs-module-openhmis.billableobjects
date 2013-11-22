@@ -23,6 +23,9 @@ public abstract class BaseBillingHandler extends BaseSerializableOpenmrsMetadata
 		billAssociator = associator;
 	}
 	
+	/**
+	 * @should receive event messages
+	 */
 	public void onMessage(Message message) {
 		Bill lineItems = this.handleEvent(message);
 		if (lineItems != null && lineItems.getLineItems().size() > 0)

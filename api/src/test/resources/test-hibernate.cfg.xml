@@ -24,8 +24,12 @@
 		<property name="use_sql_comments">true</property>
 		-->
 
+		<mapping resource="BillableObject.hbm.xml" />
+		<mapping resource="BillableEncounter.hbm.xml" />
+
 		<mapping resource="BillingHandler.hbm.xml" />
 		<mapping resource="EncounterHandler.hbm.xml" />
+		<mapping resource="DrugOrderHandler.hbm.xml" />
 		<mapping resource="BillAssociator.hbm.xml" />
 		<mapping resource="SimpleNewBillAssociator.hbm.xml" />
 		
@@ -34,6 +38,10 @@
 		<mapping resource="InvDepartment.hbm.xml" />
 		<mapping resource="InvCategory.hbm.xml" />
 <!-- 		<mapping resource="InvStockRoom.hbm.xml" /> -->
+
+		<!-- Cashier dependencies -->
+		<mapping resource="Bill.hbm.xml" />
+		<mapping resource="Cashier.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

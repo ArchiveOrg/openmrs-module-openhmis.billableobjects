@@ -55,13 +55,11 @@
 		<dependency>
 			<groupId>org.openmrs</groupId>
 			<artifactId>event-api</artifactId>
-			<type>jar</type>
 		</dependency>
 	
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>openhmis.commons-api</artifactId>
-			<type>jar</type>
 		</dependency>
 		
 		<dependency>
@@ -74,13 +72,11 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>openhmis.inventory-api</artifactId>
-			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>openhmis.cashier-api</artifactId>
-			<type>jar</type>
 		</dependency>
 				
 	</dependencies>
