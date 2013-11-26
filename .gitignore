@@ -43,6 +43,9 @@ build.log
 # release.properties
 pom.xml.releaseBackup
 
+## active mq
+api/activemq-data
+
 ## generic files to ignore
 *~
 *.lock

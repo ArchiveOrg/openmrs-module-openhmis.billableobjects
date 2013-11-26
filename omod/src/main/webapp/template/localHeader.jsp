@@ -1,18 +1,4 @@
 <spring:htmlEscape defaultHtmlEscape="true" />
-<ul id="menu">
-	<li class="first"><a
-		href="${pageContext.request.contextPath}/admin"><spring:message
-				code="admin.title.short" /></a></li>
-
-	<li
-		<c:if test='<%= request.getRequestURI().contains("/manage") %>'>class="active"</c:if>>
-		<a
-		href="${pageContext.request.contextPath}/module/openhmis.billableobjects/manage.form"><spring:message
-				code="openhmis.billableobjects.manage" /></a>
-	</li>
-	
-	<!-- Add further links here -->
-</ul>
-<h2>
-	<spring:message code="openhmis.billableobjects.title" />
-</h2>
+<openmrs:htmlInclude file="/ws/module/openhmis/backboneforms/init.js" />
+<openmrs:htmlInclude file="/moduleResources/openhmis/billableobjects/js/init.js" />
+<openmrs:htmlInclude file="/moduleResources/openhmis/backboneforms/js/curl.js" />
