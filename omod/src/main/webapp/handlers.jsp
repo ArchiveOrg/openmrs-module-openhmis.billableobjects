@@ -15,8 +15,8 @@
 <openmrs:require allPrivileges="Manage Billing Metadata, View Billing Metadata" otherwise="/login.htm" redirect="/module/openhmis/billableobjects/handlers.form" />
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="template/localHeader.jsp"%>
-<%@ include file="template/linksHeader.jsp"%>
 <openmrs:htmlInclude file="/moduleResources/openhmis/billableobjects/js/screen/billingHandlers.js" />
+<%@ include file="template/linksHeader.jsp"%>
 
 <h2>
     <spring:message code="openhmis.billableobjects.admin.handlers" />

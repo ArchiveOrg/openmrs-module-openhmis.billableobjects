@@ -13,7 +13,7 @@ import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthoriz
 
 public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<IBillingHandler>
 	implements IBillingHandlerDataService {
-
+	
 	@Override
 	protected IMetadataAuthorizationPrivileges getPrivileges() {
 		// TODO Auto-generated method stub

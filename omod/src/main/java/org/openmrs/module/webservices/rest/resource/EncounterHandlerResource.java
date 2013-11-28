@@ -10,14 +10,17 @@ import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.BillableObjectsRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
+import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
+import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingSubclassHandler;
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 
 @Resource(name = BillableObjectsRestConstants.ENCOUNTER_HANDLER_RESOURCE, supportedClass = EncounterHandler.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
 @Handler(supports = EncounterHandler.class)
-public class EncounterHandlerResource extends BaseRestMetadataResource<IBillingHandler>
+public class EncounterHandlerResource extends BillingHandlerResource<IBillingHandler>
 		implements DelegatingSubclassHandler<IBillingHandler, IBillingHandler> {
 
 	@Override
@@ -34,6 +37,22 @@ public class EncounterHandlerResource extends BaseRestMetadataResource<IBillingH
                 info.hasMoreResults());
     }
 
+	@Override
+	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
+		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
+		if (!(rep instanceof RefRepresentation)) {
+			description.addProperty("encounterType");
+		}
+		return description;
+	}
+	
+	@Override
+	public DelegatingResourceDescription getCreatableProperties() {
+		DelegatingResourceDescription description = super.getCreatableProperties();
+		description.addProperty("encounterType");
+		return description;
+	}
+	
 	@Override
 	public Class<IBillingHandler> getSubclassHandled() {
 		return IBillingHandler.class;

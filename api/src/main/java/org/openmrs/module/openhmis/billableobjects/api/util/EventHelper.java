@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.openmrs.api.context.Context;
 import org.openmrs.event.Event;
+import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
 
@@ -28,7 +29,9 @@ public class EventHelper {
 				continue;
 			}
 			for (Class<?> handledClass : annotation.value()) {
-				Event.subscribe(handledClass, Event.Action.CREATED.toString(), handler);
+				Event.subscribe(handledClass,
+				Event.Action.CREATED.toString(), 
+				BillableObjectEventListenerFactory.getInstance());
 			}
 		}
 	}

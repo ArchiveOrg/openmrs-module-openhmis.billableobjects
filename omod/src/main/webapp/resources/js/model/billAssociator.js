@@ -9,7 +9,7 @@ define(
             meta: {
                 name: __("Bill Associator"),
                 openmrsType: 'metadata',
-                restUrl: 'v2/billableobjects/billassociator'
+                restUrl: 'v2/billableobjects/simplenewbillassociators'
             },
 
             schema: {
@@ -18,7 +18,7 @@ define(
             },
             
             validate: function(attrs, options) {
-    			if (!attrs.name) return { name: __("A name is required") }
+    			if (!attrs.name) return { name: __("A name is required") };
                 return null;
             },
 

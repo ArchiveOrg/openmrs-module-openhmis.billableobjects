@@ -5,7 +5,7 @@ import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService;
-import org.openmrs.module.openhmis.billableobjects.api.types.BillableEncounter;
+import org.openmrs.module.openhmis.billableobjects.api.type.BillableEncounter;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataServiceTest;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataServiceTest;
 
