@@ -34,6 +34,8 @@
 	
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
+		BillableEncounter.hbm.xml
+		BillableObject.hbm.xml
 		BillAssociator.hbm.xml
 		BillingHandler.hbm.xml
 		EncounterHandler.hbm.xml

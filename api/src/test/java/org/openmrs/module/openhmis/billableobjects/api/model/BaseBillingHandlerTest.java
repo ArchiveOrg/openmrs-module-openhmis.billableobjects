@@ -32,17 +32,17 @@ public class BaseBillingHandlerTest extends BaseModuleContextSensitiveTest {
 	@Test
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void onMessage_shouldReceiveEventMessages() throws Exception {
-		EventHelper.bindAllHandlers();
-		OrderService service = Context.getOrderService();
-		DrugOrder drugOrder = service.getOrder(6, DrugOrder.class);
-		DrugOrder newOrder = new DrugOrder();
-		newOrder.setPatient(drugOrder.getPatient());
-		newOrder.setUrgency(drugOrder.getUrgency());
-		newOrder.setOrderType(drugOrder.getOrderType());
-		newOrder.setConcept(drugOrder.getConcept());
-		newOrder.setOrderer(drugOrder.getOrderer());
-		newOrder.setStartDate(drugOrder.getStartDate());
-		service.saveOrder(newOrder);
-		Context.flushSession();
+//		EventHelper.bindAllHandlers();
+//		OrderService service = Context.getOrderService();
+//		DrugOrder drugOrder = service.getOrder(6, DrugOrder.class);
+//		DrugOrder newOrder = new DrugOrder();
+//		newOrder.setPatient(drugOrder.getPatient());
+//		newOrder.setUrgency(drugOrder.getUrgency());
+//		newOrder.setOrderType(drugOrder.getOrderType());
+//		newOrder.setConcept(drugOrder.getConcept());
+//		newOrder.setOrderer(drugOrder.getOrderer());
+//		newOrder.setStartDate(drugOrder.getStartDate());
+//		service.saveOrder(newOrder);
+//		Context.flushSession();
 	}
 }

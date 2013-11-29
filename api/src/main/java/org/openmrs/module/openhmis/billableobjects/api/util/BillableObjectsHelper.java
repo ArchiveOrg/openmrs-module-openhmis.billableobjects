@@ -9,13 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.api.context.Context;
-import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.reflections.Reflections;
 
-public class BillableObjectsHelper extends BaseOpenmrsService {
+public class BillableObjectsHelper {
 
 	private static volatile List<String> handlerTypeNames;
 	private static volatile Map<String, Class<? extends IBillableObject>> classNameToBillableObjectTypeMap;
@@ -72,12 +70,10 @@ public class BillableObjectsHelper extends BaseOpenmrsService {
 			classNameToBillableObjectTypeMap = locateBillableObjectTypes();
 		return classNameToBillableObjectTypeMap.get(className);
 	}
-
 	
-	@Override
-	public void onStartup() {
-		super.onStartup();
-		Context.openSessionWithCurrentUser();
-		Context.closeSessionWithCurrentUser();
+	public static Set<String> getHandledTypeNames() {
+		if (classNameToBillableObjectTypeMap == null)
+			classNameToBillableObjectTypeMap = locateBillableObjectTypes();
+		return classNameToBillableObjectTypeMap.keySet();		
 	}
 }

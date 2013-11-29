@@ -5,6 +5,17 @@
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
 	<changeSet id="openhmis.billableobjects-1.0-1" author="shortend">
+		<createTable tableName="billableobj_billableobj">
+			<column name="billableobj_id" autoIncrement="true" type="int">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+
+			<column name="billableobj_type" type="varchar(255)"><constraints nullable="false" /></column>
+			<column name="object_id" type="int"><constraints nullable="false"/></column>
+			<column name="bill_id" type="int"></column>
+			<column name="uuid" type="char(38)"><constraints nullable="false" unique="true" /></column>
+		</createTable>
+	
 		<createTable tableName="billableobj_handler">
 			<column name="handler_id" autoIncrement="true" type="int">
 				<constraints nullable="false" primaryKey="true"/>
@@ -55,6 +66,12 @@
 			<column name="item_id" type="int"><constraints nullable="false"/></column>
 		</createTable>
 		
+		<createIndex indexName="billableobj_billableobj_bill_id_idx" tableName="billableobj_billableobj" unique="false">
+			<column name="bill_id"/>
+		</createIndex>
+		<createIndex indexName="billableobj_billableobj_object_id_idx" tableName="billableobj_billableobj" unique="false">
+			<column name="object_id"/>
+		</createIndex>
 		<createIndex indexName="billableobj_handler_name_idx" tableName="billableobj_handler" unique="false">
 			<column name="name"/>
 			<column name="retired" />
@@ -75,6 +92,10 @@
 		<addPrimaryKey constraintName="billableobj_handler_encounter_item_pk"
 			columnNames="handler_id, item_id"  tableName="billableobj_handler_encounter_item" />
 		
+		<addForeignKeyConstraint constraintName="billableobj_billableobj_bill_fk"
+		                         baseTableName="billableobj_billableobj" baseColumnNames="bill_id"
+		                         referencedTableName="cashier_bill" referencedColumnNames="bill_id"
+		                         deferrable="false" initiallyDeferred="false" />
 		<addForeignKeyConstraint constraintName="billableobj_handler_associator_fk"
 		                         baseTableName="billableobj_handler" baseColumnNames="associator_id"
 		                         referencedTableName="billableobj_associator" referencedColumnNames="associator_id"

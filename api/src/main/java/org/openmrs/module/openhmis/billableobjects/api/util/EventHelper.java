@@ -1,10 +1,12 @@
 package org.openmrs.module.openhmis.billableobjects.api.util;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.openmrs.api.context.Context;
 import org.openmrs.event.Event;
+import org.openmrs.event.Event.Action;
 import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
@@ -30,14 +32,28 @@ public class EventHelper {
 			}
 			for (Class<?> handledClass : annotation.value()) {
 				Event.subscribe(handledClass,
-				Event.Action.CREATED.toString(), 
+				Action.CREATED.toString(), 
 				BillableObjectEventListenerFactory.getInstance());
 			}
 		}
 	}
 	
 	public static void unbindAllHandlers() {
-		
+		Set<String> handledTypeNames = BillableObjectsHelper.getHandledTypeNames();
+		for (String typeName : handledTypeNames) {
+			Class<?> cls;
+			try {
+				cls = Class.forName(typeName);
+			} catch (ClassNotFoundException e) {
+				logger.warn("Could not find class \"" + typeName + "\": not unbinding any event handler.");
+				continue;
+			}
+			Event.unsubscribe(
+				cls,
+				Action.CREATED,
+				BillableObjectEventListenerFactory.getInstance()
+			);
+		}
 	}
 	
 }

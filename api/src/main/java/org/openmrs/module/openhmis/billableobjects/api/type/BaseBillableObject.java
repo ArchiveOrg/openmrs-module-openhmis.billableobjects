@@ -1,13 +1,14 @@
 package org.openmrs.module.openhmis.billableobjects.api.type;
 
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
 import org.openmrs.module.openhmis.cashier.api.model.Bill;
 
-public abstract class BaseBillableObject<T extends OpenmrsObject> implements IBillableObject<T> {
+public abstract class BaseBillableObject<T extends OpenmrsObject> extends BaseOpenmrsObject
+		implements IBillableObject<T> {
 	
 	private Integer billable_object_id;
-	private String billable_object_uuid;
 	private T object;
 	private Bill bill;
 	
@@ -40,15 +41,4 @@ public abstract class BaseBillableObject<T extends OpenmrsObject> implements IBi
 	public void setBill(Bill bill) {
 		this.bill = bill;
 	}
-
-	@Override
-	public String getUuid() {
-		return billable_object_uuid;
-	}
-
-	@Override
-	public void setUuid(String uuid) {
-		billable_object_uuid = uuid;
-	}
-
 }

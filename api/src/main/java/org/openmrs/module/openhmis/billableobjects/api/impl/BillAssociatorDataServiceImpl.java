@@ -10,19 +10,19 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillAssociatorDataServic
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
+import org.openmrs.module.openhmis.inventory.api.security.BasicMetadataAuthorizationPrivileges;
 
 public class BillAssociatorDataServiceImpl extends BaseMetadataDataServiceImpl<IBillAssociator>
 	implements IBillAssociatorDataService {
 
 	@Override
 	protected IMetadataAuthorizationPrivileges getPrivileges() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BasicMetadataAuthorizationPrivileges();
 	}
 
 	@Override
 	protected void validate(IBillAssociator object) throws APIException {
-		// TODO Auto-generated method stub		
+
 	}
 	
 	@Override

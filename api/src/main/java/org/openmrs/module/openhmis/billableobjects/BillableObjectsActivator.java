@@ -16,13 +16,16 @@ package org.openmrs.module.openhmis.billableobjects;
 
 import org.apache.commons.logging.Log; 
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.module.DaemonToken;
+import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
 import org.openmrs.module.openhmis.billableobjects.api.util.EventHelper;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class BillableObjectsActivator implements ModuleActivator {
+public class BillableObjectsActivator implements ModuleActivator, DaemonTokenAware {
 	
 	protected Log log = LogFactory.getLog(getClass());
 		
@@ -68,6 +71,11 @@ public class BillableObjectsActivator implements ModuleActivator {
 	 */
 	public void stopped() {
 		log.info("Event Based Billing Module stopped");
+	}
+
+	@Override
+	public void setDaemonToken(DaemonToken token) {
+		BillableObjectEventListenerFactory.setDaemonToken(token);
 	}
 		
 }

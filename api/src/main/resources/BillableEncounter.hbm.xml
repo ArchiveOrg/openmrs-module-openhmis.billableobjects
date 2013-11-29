@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api.types">
+<hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api.type">
 	<subclass name="BillableEncounter" discriminator-value="ENCOUNTER"
 		extends="org.openmrs.module.openhmis.billableobjects.api.IBillableObject">
 		<many-to-one name="object"  class="org.openmrs.Encounter" column="object_id" not-null="true" />
