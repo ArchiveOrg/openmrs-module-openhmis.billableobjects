@@ -1,9 +1,8 @@
 package org.openmrs.module.webservices.rest.resource;
 
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.model.EncounterHandler;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
@@ -19,12 +18,11 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingSubclassH
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 
 @Resource(name = BillableObjectsRestConstants.ENCOUNTER_HANDLER_RESOURCE, supportedClass = EncounterHandler.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
-@Handler(supports = EncounterHandler.class)
-public class EncounterHandlerResource extends BillingHandlerResource<IBillingHandler>
-		implements DelegatingSubclassHandler<IBillingHandler, IBillingHandler> {
+public class EncounterHandlerResource extends BillingHandlerResource<BaseBillingHandler>
+		implements DelegatingSubclassHandler<BaseBillingHandler, BaseBillingHandler> {
 
 	@Override
-	public Class<? extends IMetadataDataService<IBillingHandler>> getServiceClass() {
+	public Class<? extends IMetadataDataService<BaseBillingHandler>> getServiceClass() {
 		return IBillingHandlerDataService.class;
 	}
 
@@ -54,13 +52,13 @@ public class EncounterHandlerResource extends BillingHandlerResource<IBillingHan
 	}
 	
 	@Override
-	public Class<IBillingHandler> getSubclassHandled() {
-		return IBillingHandler.class;
+	public Class<BaseBillingHandler> getSubclassHandled() {
+		return BaseBillingHandler.class;
 	}
 
 	@Override
-	public Class<IBillingHandler> getSuperclass() {
-		return IBillingHandler.class;
+	public Class<BaseBillingHandler> getSuperclass() {
+		return BaseBillingHandler.class;
 	}
 
 	@Override
@@ -69,7 +67,7 @@ public class EncounterHandlerResource extends BillingHandlerResource<IBillingHan
 	}
 
 	@Override
-	public EncounterHandler newDelegate() {
+	public BaseBillingHandler newDelegate() {
 		return new EncounterHandler();
 	}
 

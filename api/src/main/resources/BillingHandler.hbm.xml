@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api">
-	<class name="IBillingHandler" table="billableobj_handler">
+<hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api.model">
+	<class name="BaseBillingHandler" table="billableobj_handler" abstract="true">
 		<cache usage="read-write"/>
 
 		<id name="id" type="int" column="handler_id">
@@ -12,7 +12,7 @@
 			</generator>
 		</id>
 
-		<many-to-one name="billAssociator" class="IBillAssociator" column="associator_id" not-null="true" />
+		<many-to-one name="billAssociator" class="BaseBillAssociator" column="associator_id" not-null="true" />
 
 		<!-- BaseOpenmrsMetadata fields -->
 		<property name="name" type="java.lang.String" column="name" not-null="true" length="255" />

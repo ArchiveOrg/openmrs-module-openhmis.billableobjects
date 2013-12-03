@@ -5,14 +5,15 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.IBillAssociator;
 import org.openmrs.module.openhmis.billableobjects.api.IBillAssociatorDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillAssociator;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillAssociator;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.openmrs.module.openhmis.inventory.api.security.BasicMetadataAuthorizationPrivileges;
 
-public class BillAssociatorDataServiceImpl extends BaseMetadataDataServiceImpl<IBillAssociator>
+public class BillAssociatorDataServiceImpl extends BaseMetadataDataServiceImpl<BaseBillAssociator>
 	implements IBillAssociatorDataService {
 
 	@Override
@@ -21,7 +22,7 @@ public class BillAssociatorDataServiceImpl extends BaseMetadataDataServiceImpl<I
 	}
 
 	@Override
-	protected void validate(IBillAssociator object) throws APIException {
+	protected void validate(BaseBillAssociator object) throws APIException {
 
 	}
 	

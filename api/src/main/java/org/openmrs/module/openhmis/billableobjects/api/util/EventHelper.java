@@ -8,8 +8,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.event.Event;
 import org.openmrs.event.Event.Action;
 import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
-import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillingHandler;
 
 
 public class EventHelper {
@@ -19,7 +20,7 @@ public class EventHelper {
 	 * @should bind all existing handlers
 	 */
 	public static void bindAllHandlers() {
-		List<IBillingHandler> handlers = Context.getService(IBillingHandlerDataService.class).getAll();
+		List<BaseBillingHandler> handlers = Context.getService(IBillingHandlerDataService.class).getAll();
 		for (IBillingHandler handler : handlers) {
 			BillsFor annotation = handler.getClass().getAnnotation(BillsFor.class);
 			if (annotation == null) {

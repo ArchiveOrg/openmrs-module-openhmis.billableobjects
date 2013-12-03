@@ -1,9 +1,8 @@
 package org.openmrs.module.webservices.rest.resource;
 
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.IBillAssociator;
 import org.openmrs.module.openhmis.billableobjects.api.IBillAssociatorDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillAssociator;
 import org.openmrs.module.openhmis.billableobjects.api.model.SimpleNewBillAssociator;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
@@ -18,12 +17,11 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingSubclassH
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 
 @Resource(name = BillableObjectsRestConstants.SIMPLE_NEW_ASSOCIATOR_RESOURCE, supportedClass = SimpleNewBillAssociator.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
-@Handler(supports = SimpleNewBillAssociator.class)
-public class SimpleNewBillAssociatorResource extends BaseRestMetadataResource<IBillAssociator> implements
-		DelegatingSubclassHandler<IBillAssociator, IBillAssociator> {
+public class SimpleNewBillAssociatorResource extends BaseRestMetadataResource<BaseBillAssociator> implements
+		DelegatingSubclassHandler<BaseBillAssociator, BaseBillAssociator> {
 
 	@Override
-	public Class<? extends IMetadataDataService<IBillAssociator>> getServiceClass() {
+	public Class<? extends IMetadataDataService<BaseBillAssociator>> getServiceClass() {
 		return IBillAssociatorDataService.class;
 	}
 	
@@ -48,17 +46,17 @@ public class SimpleNewBillAssociatorResource extends BaseRestMetadataResource<IB
 	}
 
 	@Override
-	public Class<IBillAssociator> getSuperclass() {
-		return IBillAssociator.class;
+	public Class<BaseBillAssociator> getSuperclass() {
+		return BaseBillAssociator.class;
 	}
 
 	@Override
-	public Class<IBillAssociator> getSubclassHandled() {
-		return IBillAssociator.class;
+	public Class<BaseBillAssociator> getSubclassHandled() {
+		return BaseBillAssociator.class;
 	}
 
 	@Override
-	public IBillAssociator newDelegate() {
+	public BaseBillAssociator newDelegate() {
 		return new SimpleNewBillAssociator();
 	}
 

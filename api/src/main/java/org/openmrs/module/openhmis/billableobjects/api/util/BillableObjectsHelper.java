@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
-import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillingHandler;
 import org.reflections.Reflections;
 
 public class BillableObjectsHelper {

@@ -1,15 +1,13 @@
 package org.openmrs.module.openhmis.billableobjects.api;
 
 import org.openmrs.Encounter;
-import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService;
+import org.openmrs.module.openhmis.billableobjects.api.type.BaseBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.type.BillableEncounter;
-import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataServiceTest;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataServiceTest;
 
-public class IBillableObjectDataServiceTest extends IObjectDataServiceTest<IBillableObjectDataService, IBillableObject> {
+public class IBillableObjectDataServiceTest extends IObjectDataServiceTest<IBillableObjectDataService, BaseBillableObject> {
 	public static final String BILLABLEOBJ_DATASET = TestConstants.BASE_DATASET_DIR + "BillableObjectTest.xml";
 	public static final String ENCOUNTER_DATASET = TestConstants.BASE_DATASET_DIR + "EncounterServiceTest.xml";
 	
@@ -22,8 +20,8 @@ public class IBillableObjectDataServiceTest extends IObjectDataServiceTest<IBill
 	}
 	
 	@Override
-	protected IBillableObject createEntity(boolean valid) {
-		IBillableObject<Encounter> billable = new BillableEncounter();
+	protected BaseBillableObject<?> createEntity(boolean valid) {
+		BaseBillableObject<Encounter> billable = new BillableEncounter();
 		if (valid)
 			billable.setObject(Context.getEncounterService().getEncounter(17));
 		return billable;
@@ -35,7 +33,7 @@ public class IBillableObjectDataServiceTest extends IObjectDataServiceTest<IBill
 	}
 
 	@Override
-	protected void updateEntityFields(IBillableObject entity) {
+	protected void updateEntityFields(BaseBillableObject entity) {
 		entity.setUuid("b67a9131-0111-4ad4-87ae-4d2f59ecce6e");
 	}
 

@@ -3,13 +3,9 @@ package org.openmrs.module.openhmis.billableobjects.api.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.DrugOrder;
-import org.openmrs.api.OrderService;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServiceTest;
 import org.openmrs.module.openhmis.billableobjects.api.TestConstants;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
-import org.openmrs.module.openhmis.billableobjects.api.util.EventHelper;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

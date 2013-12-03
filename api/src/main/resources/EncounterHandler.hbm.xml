@@ -3,8 +3,7 @@
 		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.openmrs.module.openhmis.billableobjects.api.model">
-	<joined-subclass name="EncounterHandler" extends="org.openmrs.module.openhmis.billableobjects.api.IBillingHandler"
-		table="billableobj_handler_encounter">
+	<joined-subclass name="EncounterHandler" extends="BaseBillingHandler" table="billableobj_handler_encounter">
 		<key column="handler_id" />
 		
 		<many-to-one name="encounterType" class="org.openmrs.EncounterType" column="encounter_type_id" not-null="true" />

@@ -11,8 +11,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
 import org.openmrs.event.EventListener;
 import org.openmrs.module.DaemonToken;
-import org.openmrs.module.openhmis.billableobjects.api.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
+import org.openmrs.module.openhmis.billableobjects.api.type.BaseBillableObject;
 
 public class BillableObjectEventListener implements EventListener {
 	private static final Logger logger = Logger.getLogger(BillableObjectEventListener.class);
@@ -52,7 +53,7 @@ public class BillableObjectEventListener implements EventListener {
 					throw new APIException("No handler found for class " + className + ".");
 				OpenmrsObject associatedObject = billableObject.getObjectByUuid(associatedUuid);
 				billableObject.setObject(associatedObject);			
-				Context.getService(IBillableObjectDataService.class).save(billableObject);
+				Context.getService(IBillableObjectDataService.class).save((BaseBillableObject<?>) billableObject);
 			}
 			catch (InstantiationException e) {
 				logger.error("Error instantiating IBillableObject class: " + e.getMessage());

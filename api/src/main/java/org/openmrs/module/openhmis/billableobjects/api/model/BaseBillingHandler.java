@@ -3,8 +3,6 @@ package org.openmrs.module.openhmis.billableobjects.api.model;
 import javax.jms.Message;
 
 import org.apache.log4j.Logger;
-import org.openmrs.module.openhmis.billableobjects.api.IBillAssociator;
-import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.cashier.api.model.Bill;
 import org.openmrs.module.openhmis.commons.api.entity.model.BaseSerializableOpenmrsMetadata;
 

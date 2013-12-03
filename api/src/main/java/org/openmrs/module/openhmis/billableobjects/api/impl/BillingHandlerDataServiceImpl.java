@@ -5,15 +5,16 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
+import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
+import org.openmrs.module.openhmis.billableobjects.api.model.IBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.util.EventHelper;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.openmrs.module.openhmis.inventory.api.security.BasicMetadataAuthorizationPrivileges;
 
-public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<IBillingHandler>
+public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<BaseBillingHandler>
 	implements IBillingHandlerDataService {
 	
 	@Override
@@ -22,14 +23,14 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<I
 	}
 
 	@Override
-	protected void validate(IBillingHandler object) throws APIException {
+	protected void validate(BaseBillingHandler object) throws APIException {
 		
 	}
 
 	@Override
-	public IBillingHandler save(IBillingHandler object) {
+	public BaseBillingHandler save(BaseBillingHandler object) {
 		boolean isNew = (object.getId() == null);
-		IBillingHandler result = super.save(object);
+		BaseBillingHandler result = super.save(object);
 		// If a new handler is successfully saved, make sure event handlers are up to date
 		if (isNew && result != null && result.getId() != null)
 			EventHelper.bindAllHandlers();

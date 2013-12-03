@@ -1,4 +1,4 @@
-package org.openmrs.module.openhmis.billableobjects.api;
+package org.openmrs.module.openhmis.billableobjects.api.model;
 
 import org.openmrs.OpenmrsObject;
 import org.openmrs.module.openhmis.cashier.api.model.Bill;

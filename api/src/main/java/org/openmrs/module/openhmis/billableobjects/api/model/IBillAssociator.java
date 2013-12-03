@@ -1,4 +1,4 @@
-package org.openmrs.module.openhmis.billableobjects.api;
+package org.openmrs.module.openhmis.billableobjects.api.model;
 
 import java.util.List;
 
