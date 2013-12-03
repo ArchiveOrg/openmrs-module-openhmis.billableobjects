@@ -40,6 +40,7 @@ public class EncounterHandlerResource extends BillingHandlerResource<BaseBilling
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
 		if (!(rep instanceof RefRepresentation)) {
 			description.addProperty("encounterType");
+			description.addProperty("associatedItems");
 		}
 		return description;
 	}
@@ -48,6 +49,7 @@ public class EncounterHandlerResource extends BillingHandlerResource<BaseBilling
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = super.getCreatableProperties();
 		description.addProperty("encounterType");
+		description.addProperty("associatedItems");
 		return description;
 	}
 	

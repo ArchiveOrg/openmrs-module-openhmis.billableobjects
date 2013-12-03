@@ -4,6 +4,7 @@ curl(
         openhmis.url.backboneBase + 'js/lib/jquery',
         openhmis.url.backboneBase + 'js/openhmis',
         openhmis.url.backboneBase + 'js/view/generic',
+        openhmis.url.inventoryBase + 'js/view/editors', // for item selection
         openhmis.url.billableobjBase + 'js/model/billingHandler',
         openhmis.url.billableobjBase + 'js/view/editors',
         openhmis.url.billableobjBase + 'js/view/billingHandler'

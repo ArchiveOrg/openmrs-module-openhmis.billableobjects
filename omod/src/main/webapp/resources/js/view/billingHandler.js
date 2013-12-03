@@ -23,7 +23,16 @@ define(
 				this.modelForm.on("type:change", function(editor) {
 					self.trigger("change:type", editor);
 				});
-			}
+			},
+			
+			prepareModelForm: function(model, options) {
+				options = options ? options : {};
+				if (model.id !== undefined && model.schema !== undefined) {
+					options.schema = $.extend({}, model.schema);
+					delete options.schema.type;
+				}
+				return openhmis.GenericAddEditView.prototype.prepareModelForm.call(this, model, options);
+			},
 			
 //			render: function() {
 //				openhmis.GenericAddEditView.prototype.render.call(this);

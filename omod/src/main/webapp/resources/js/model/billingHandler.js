@@ -3,6 +3,8 @@ define(
         openhmis.url.backboneBase + 'js/openhmis',
         openhmis.url.backboneBase + 'js/lib/i18n',
         openhmis.url.backboneBase + 'js/model/generic',
+        openhmis.url.backboneBase + 'js/view/nestedExistingModel',
+        openhmis.url.inventoryBase + 'js/model/item',
         openhmis.url.billableobjBase + 'js/model/encounterType',
         openhmis.url.billableobjBase + 'js/model/billAssociator'
     ],
@@ -79,6 +81,12 @@ define(
             		type: 'GenericModelSelect',
             		modelType: openhmis.EncounterType,
             		options: new openhmis.GenericCollection(null, { model: openhmis.EncounterType }),
+            		objRef: true
+            	},
+            	associatedItems: {
+            		type: 'List',
+            		itemType: 'NestedExistingModel',
+            		model: openhmis.Item,
             		objRef: true
             	},
             	billAssociator: {
