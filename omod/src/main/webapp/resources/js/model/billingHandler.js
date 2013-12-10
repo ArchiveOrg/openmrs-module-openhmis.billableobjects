@@ -3,10 +3,10 @@ define(
         openhmis.url.backboneBase + 'js/openhmis',
         openhmis.url.backboneBase + 'js/lib/i18n',
         openhmis.url.backboneBase + 'js/model/generic',
-        openhmis.url.backboneBase + 'js/view/nestedExistingModel',
         openhmis.url.inventoryBase + 'js/model/item',
         openhmis.url.billableobjBase + 'js/model/encounterType',
         openhmis.url.billableobjBase + 'js/model/billAssociator'
+        // required for form display: openhmis.url.backboneBase + 'js/view/nestedExistingModel' 
     ],
     function(openhmis, __) {
     	
@@ -86,6 +86,12 @@ define(
             	associatedItems: {
             		type: 'List',
             		itemType: 'NestedExistingModel',
+            		options: new openhmis.GenericCollection(null, { model: openhmis.Item }),
+            		title: "Choose an item",
+            		editor: 'ItemListSelect',
+            		editorOptions: {
+            			listFields: ["name", "defaultPrice"]
+            		},
             		model: openhmis.Item,
             		objRef: true
             	},

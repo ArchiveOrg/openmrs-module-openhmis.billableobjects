@@ -6,9 +6,9 @@
 	<joined-subclass name="EncounterHandler" extends="BaseBillingHandler" table="billableobj_handler_encounter">
 		<key column="handler_id" />
 		
-		<many-to-one name="encounterType" class="org.openmrs.EncounterType" column="encounter_type_id" not-null="true" />
+		<many-to-one name="encounterType" class="org.openmrs.EncounterType" column="encounter_type_id" not-null="true" lazy="false" />
 		
-		<set name="associatedItems" lazy="true" table="billableobj_handler_encounter_item">
+		<set name="associatedItems" table="billableobj_handler_encounter_item" lazy="false">
 			<key column="handler_id" />
 			<many-to-many column="item_id" class="org.openmrs.module.openhmis.inventory.api.model.Item" />
 		</set>

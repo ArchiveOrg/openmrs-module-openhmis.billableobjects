@@ -1,13 +1,9 @@
 package org.openmrs.module.openhmis.billableobjects.api.model;
 
-import javax.jms.Message;
+import java.util.List;
 
-import org.openmrs.OpenmrsMetadata;
-import org.openmrs.event.EventListener;
-import org.openmrs.module.openhmis.cashier.api.model.Bill;
+import org.openmrs.module.openhmis.cashier.api.model.BillLineItem;
 
-public interface IBillingHandler extends OpenmrsMetadata, EventListener {
-	public IBillAssociator getBillAssociator();
-	public void setBillAssociator(IBillAssociator associator);
-	public Bill handleEvent(Message message);
+public interface IBillingHandler<T> {
+	public List<BillLineItem> handleObject(T object);
 }

@@ -23,7 +23,6 @@
 
 			<column name="name" type="varchar(255)" defaultValue="" ><constraints nullable="false"/></column>
 			<column name="description" type="varchar(1024)" defaultValue=""/>
-			<column name="associator_id" type="int"><constraints nullable="false" /></column>
 
 			<column name="creator" type="int" defaultValueNumeric="0" ><constraints nullable="false"/></column>
 			<column name="date_created" type="DATETIME"><constraints nullable="false"/></column>
@@ -95,10 +94,6 @@
 		<addForeignKeyConstraint constraintName="billableobj_billableobj_bill_fk"
 		                         baseTableName="billableobj_billableobj" baseColumnNames="bill_id"
 		                         referencedTableName="cashier_bill" referencedColumnNames="bill_id"
-		                         deferrable="false" initiallyDeferred="false" />
-		<addForeignKeyConstraint constraintName="billableobj_handler_associator_fk"
-		                         baseTableName="billableobj_handler" baseColumnNames="associator_id"
-		                         referencedTableName="billableobj_associator" referencedColumnNames="associator_id"
 		                         deferrable="false" initiallyDeferred="false" />
 		<addForeignKeyConstraint constraintName="billableobj_handler_creator_fk"
 		                         baseTableName="billableobj_handler" baseColumnNames="creator"

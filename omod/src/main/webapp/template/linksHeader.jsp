@@ -24,11 +24,4 @@
 			</a>
 		</li>
 	</openmrs:hasPrivilege>
-	<openmrs:hasPrivilege privilege="Manage Billing Handlers">
-		<li <c:if test='<%= request.getRequestURI().contains("billableobjects/associators") %>'>class="active"</c:if>>
-			<a href="${pageContext.request.contextPath}/module/openhmis/billableobjects/associators.form">
-				<spring:message code="openhmis.billableobjects.admin.associators"/>
-			</a>
-		</li>
-	</openmrs:hasPrivilege>
 </ul>

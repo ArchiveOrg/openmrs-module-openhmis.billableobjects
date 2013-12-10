@@ -15,9 +15,10 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataServic
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.type.BaseBillableObject;
 
-public class BillableObjectEventListener implements EventListener {
+public class BillableObjectEventListener implements EventListener, Runnable {
 	private static final Logger logger = Logger.getLogger(BillableObjectEventListener.class);
 	private DaemonToken daemonToken;
+	private Message message;
 
 	public BillableObjectEventListener(DaemonToken token) {
 		if (token != null)
@@ -28,42 +29,36 @@ public class BillableObjectEventListener implements EventListener {
 	
 	@Override
 	public void onMessage(Message message) {
-		Daemon.runInDaemonThread(new BillableObjectRunner(message), daemonToken);
+		this.message = message;
+		Daemon.runInDaemonThread(this, daemonToken);
 	}
-	
-	private class BillableObjectRunner implements Runnable {
-		private Message message;
-		public BillableObjectRunner(Message message) {
-			this.message = message;
+			
+	@Override
+	public void run() {
+		try {
+			MapMessage mapMessage = (MapMessage) message;
+			String className = mapMessage.getString("classname");
+			String associatedUuid = mapMessage.getString("uuid");
+			
+			IBillableObject billableObject;
+			Class<? extends IBillableObject> cls = BillableObjectsHelper
+					.getBillableObjectTypeForClassName(className);
+			if (cls != null)
+				billableObject = cls.newInstance();
+			else
+				throw new APIException("No handler found for class " + className + ".");
+			OpenmrsObject associatedObject = billableObject.getObjectByUuid(associatedUuid);
+			billableObject.setObject(associatedObject);			
+			Context.getService(IBillableObjectDataService.class).save((BaseBillableObject<?>) billableObject);
 		}
-		
-		@Override
-		public void run() {
-			try {
-				MapMessage mapMessage = (MapMessage) message;
-				String className = mapMessage.getString("classname");
-				String associatedUuid = mapMessage.getString("uuid");
-				
-				IBillableObject billableObject;
-				Class<? extends IBillableObject> cls = BillableObjectsHelper
-						.getBillableObjectTypeForClassName(className);
-				if (cls != null)
-					billableObject = cls.newInstance();
-				else
-					throw new APIException("No handler found for class " + className + ".");
-				OpenmrsObject associatedObject = billableObject.getObjectByUuid(associatedUuid);
-				billableObject.setObject(associatedObject);			
-				Context.getService(IBillableObjectDataService.class).save((BaseBillableObject<?>) billableObject);
-			}
-			catch (InstantiationException e) {
-				logger.error("Error instantiating IBillableObject class: " + e.getMessage());
-			}
-			catch (JMSException e) {
-				logger.error("Error reading message: " + e.getMessage());
-			} catch (Exception e) {
-				logger.error("Error handling message: " + e.getMessage());
-				e.printStackTrace();
-			}			
+		catch (InstantiationException e) {
+			logger.error("Error instantiating IBillableObject class: " + e.getMessage());
 		}
+		catch (JMSException e) {
+			logger.error("Error reading message: " + e.getMessage());
+		} catch (Exception e) {
+			logger.error("Error handling message: " + e.getMessage());
+			e.printStackTrace();
+		}			
 	}
 }

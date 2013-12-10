@@ -1,22 +1,20 @@
 package org.openmrs.module.openhmis.billableobjects.api.model;
 
-import javax.jms.Message;
+import java.util.List;
 
-import org.openmrs.Order;
-import org.openmrs.module.openhmis.billableobjects.api.util.BillsFor;
-import org.openmrs.module.openhmis.cashier.api.model.Bill;
+import org.openmrs.DrugOrder;
+import org.openmrs.module.openhmis.cashier.api.model.BillLineItem;
 
-@BillsFor({ Order.class })
-public class DrugOrderHandler extends BaseBillingHandler {
+public class DrugOrderHandler extends BaseBillingHandler<DrugOrder> {
 	
 	private Integer id;
 
 	@Override
-	public Bill handleEvent(Message message) {
+	public List<BillLineItem> handleObject(DrugOrder drugOrder) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public Integer getId() {
 		return id;

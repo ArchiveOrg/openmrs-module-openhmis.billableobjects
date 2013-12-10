@@ -30,8 +30,6 @@
 		<mapping resource="BillingHandler.hbm.xml" />
 		<mapping resource="EncounterHandler.hbm.xml" />
 		<mapping resource="DrugOrderHandler.hbm.xml" />
-		<mapping resource="BillAssociator.hbm.xml" />
-		<mapping resource="SimpleNewBillAssociator.hbm.xml" />
 		
 		<!-- Inventory dependencies -->
 		<mapping resource="InvItem.hbm.xml" />

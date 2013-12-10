@@ -1,6 +1,7 @@
 package org.openmrs.module.openhmis.billableobjects.api.model;
 
 import org.openmrs.OpenmrsObject;
+import org.openmrs.Patient;
 import org.openmrs.module.openhmis.cashier.api.model.Bill;
 
 public interface IBillableObject<T extends OpenmrsObject> extends OpenmrsObject {
@@ -11,4 +12,5 @@ public interface IBillableObject<T extends OpenmrsObject> extends OpenmrsObject 
 	public void setObject(T object);
 	public Bill getBill();
 	public void setBill(Bill bill);
+	public Patient getAssociatedPatient();
 }

@@ -1,22 +1,16 @@
 package org.openmrs.module.openhmis.billableobjects.api.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-
-import javax.jms.JMSException;
-import javax.jms.MapMessage;
-import javax.jms.Message;
 
 import org.apache.log4j.Logger;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.billableobjects.api.util.BillsFor;
-import org.openmrs.module.openhmis.cashier.api.model.Bill;
 import org.openmrs.module.openhmis.cashier.api.model.BillLineItem;
 import org.openmrs.module.openhmis.inventory.api.model.Item;
 
-@BillsFor({ Encounter.class })
-public class EncounterHandler extends BaseBillingHandler {
+public class EncounterHandler extends BaseBillingHandler<Encounter> {
 	private static final Logger logger = Logger.getLogger(EncounterHandler.class);
 	
 	private Integer encounterHandlerId;
@@ -24,31 +18,28 @@ public class EncounterHandler extends BaseBillingHandler {
 	private Set<Item> associatedItems;
 	
 	@Override
-	public Bill handleEvent(Message message) {
-		try {
-			MapMessage mapMessage = (MapMessage) message;
-			Encounter encounter = Context.getEncounterService().getEncounterByUuid(mapMessage.getString("uuid"));
-			if (encounter.getEncounterType().getUuid().equals(getEncounterType().getUuid())) {
-				Bill lineItems = new Bill();
-				lineItems.setPatient(encounter.getPatient());
-				// TODO: Fix hard-coded provider
-				lineItems.setCashier(Context.getProviderService().getProvider(3));
-				for (Item item : getAssociatedItems()) {
-					BillLineItem lineItem = new BillLineItem();
-					lineItem.setItem(item);
-					lineItem.setPrice(item.getDefaultPrice().getPrice());
-					lineItem.setQuantity(1);
-					lineItems.addLineItem(lineItem);
-				}
-				return lineItems;
+	public List<BillLineItem> handleObject(Encounter encounter) {
+		Set<Item> associatedItems = getAssociatedItems();
+		// Only handle for specified encounter type; return empty list
+		if (encounter.getEncounterType().getId() != getEncounterType().getId())
+			return null;
+		// return empty list if there are no associated items
+		if (associatedItems == null || associatedItems.isEmpty())
+			return new ArrayList<BillLineItem>();
+		
+		List<BillLineItem> lineItems = new ArrayList<BillLineItem>(associatedItems.size());
+		if (encounter.getEncounterType().getUuid().equals(getEncounterType().getUuid())) {
+			for (Item item : getAssociatedItems()) {
+				BillLineItem lineItem = new BillLineItem();
+				lineItem.setItem(item);
+				lineItem.setPrice(item.getDefaultPrice().getPrice());
+				lineItem.setQuantity(1);
+				lineItems.add(lineItem);
 			}
 		}
-		catch (JMSException e) {
-			logger.error("Error reading message.");
-		}
-		return null;
+		return lineItems;
 	}
-		
+	
 	/** Getters & setters **/
 	@Override
 	public Integer getId() {

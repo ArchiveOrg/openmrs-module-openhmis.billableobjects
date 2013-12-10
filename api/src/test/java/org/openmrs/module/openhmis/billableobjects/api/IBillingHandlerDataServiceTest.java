@@ -2,7 +2,6 @@ package org.openmrs.module.openhmis.billableobjects.api;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.DaemonToken;
-import org.openmrs.module.openhmis.billableobjects.api.IBillAssociatorDataService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.model.EncounterHandler;
@@ -25,7 +24,6 @@ public class IBillingHandlerDataServiceTest extends IMetadataDataServiceTest<IBi
 	protected BaseBillingHandler createEntity(boolean valid) {
 		EncounterHandler handler = new EncounterHandler();
 		if (valid) handler.setName("Test Encounter Handler");
-		handler.setBillAssociator(Context.getService(IBillAssociatorDataService.class).getById(0));
 		handler.setEncounterType(Context.getEncounterService().getEncounterType(1));
 		return handler;
 	}
