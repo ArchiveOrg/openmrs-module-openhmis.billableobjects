@@ -4,9 +4,7 @@ define(
         openhmis.url.backboneBase + 'js/lib/i18n',
         openhmis.url.backboneBase + 'js/model/generic',
         openhmis.url.inventoryBase + 'js/model/item',
-        openhmis.url.billableobjBase + 'js/model/encounterType',
-        openhmis.url.billableobjBase + 'js/model/billAssociator'
-        // required for form display: openhmis.url.backboneBase + 'js/view/nestedExistingModel' 
+        openhmis.url.billableobjBase + 'js/model/encounterType'
     ],
     function(openhmis, __) {
     	
@@ -93,12 +91,6 @@ define(
             			listFields: ["name", "defaultPrice"]
             		},
             		model: openhmis.Item,
-            		objRef: true
-            	},
-            	billAssociator: {
-            		type: 'GenericModelSelect',
-            		modelType: openhmis.BillAssociator,
-            		options: new openhmis.GenericCollection(null, { model: openhmis.BillAssociator }),
             		objRef: true
             	}
             }),

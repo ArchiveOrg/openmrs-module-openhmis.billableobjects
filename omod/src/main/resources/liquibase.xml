@@ -34,27 +34,7 @@
 			<column name="retire_reason" type="varchar(255)"/>
 			<column name="uuid" type="char(38)"><constraints nullable="false" unique="true" /></column>
 		</createTable>
-		
-		<createTable tableName="billableobj_associator">
-			<column name="associator_id" autoIncrement="true" type="int">
-				<constraints nullable="false" primaryKey="true"/>
-			</column>
-
-			<column name="name" type="varchar(255)" defaultValue="" ><constraints nullable="false"/></column>
-			<column name="description" type="varchar(1024)" defaultValue=""/>
-			<column name="associator_type" type="varchar(255)"><constraints nullable="false" /></column>
-
-			<column name="creator" type="int" defaultValueNumeric="0" ><constraints nullable="false"/></column>
-			<column name="date_created" type="DATETIME"><constraints nullable="false"/></column>
-			<column name="changed_by" type="int"/>
-			<column name="date_changed" type="DATETIME"/>
-			<column defaultValueBoolean="false" name="retired" type="BOOLEAN"><constraints nullable="false"/></column>
-			<column name="retired_by" type="int"/>
-			<column name="date_retired" type="DATETIME"/>
-			<column name="retire_reason" type="varchar(255)"/>
-			<column name="uuid" type="char(38)"><constraints nullable="false" unique="true" /></column>
-		</createTable>
-		
+				
 		<createTable tableName="billableobj_handler_encounter">
 			<column name="handler_id" type="int"><constraints nullable="false"/></column>
 			<column name="encounter_type_id" type="int"><constraints nullable="false"/></column>
@@ -74,16 +54,6 @@
 		<createIndex indexName="billableobj_handler_name_idx" tableName="billableobj_handler" unique="false">
 			<column name="name"/>
 			<column name="retired" />
-		</createIndex>
-		<createIndex indexName="billableobj_handler_associator_id_idx" tableName="billableobj_handler" unique="false">
-			<column name="associator_id" />
-		</createIndex>
-		<createIndex indexName="billableobj_associator_name_idx" tableName="billableobj_associator" unique="false">
-			<column name="name"/>
-			<column name="retired" />
-		</createIndex>
-		<createIndex indexName="billableobj_associator_associator_type_idx" tableName="billableobj_associator" unique="false">
-			<column name="associator_type"/>
 		</createIndex>
 		<createIndex indexName="billableobj_handler_encounter_handler_id_idx" tableName="billableobj_handler_encounter" unique="false">
 			<column name="handler_id"/>
@@ -105,19 +75,6 @@
 		                         deferrable="false" initiallyDeferred="false" />
 		<addForeignKeyConstraint constraintName="billableobj_handler_retired_by_fk"
 		                         baseTableName="billableobj_handler" baseColumnNames="retired_by"
-		                         referencedTableName="users" referencedColumnNames="user_id"
-		                         deferrable="false" initiallyDeferred="false" />
-
-		<addForeignKeyConstraint constraintName="billableobj_associator_creator_fk"
-		                         baseTableName="billableobj_associator" baseColumnNames="creator"
-		                         referencedTableName="users" referencedColumnNames="user_id"
-		                         deferrable="false" initiallyDeferred="false" />
-		<addForeignKeyConstraint constraintName="ebillableobj_associator_changed_by_fk"
-		                         baseTableName="billableobj_associator" baseColumnNames="changed_by"
-		                         referencedTableName="users" referencedColumnNames="user_id"
-		                         deferrable="false" initiallyDeferred="false" />
-		<addForeignKeyConstraint constraintName="billableobj_associator_retired_by_fk"
-		                         baseTableName="billableobj_associator" baseColumnNames="retired_by"
 		                         referencedTableName="users" referencedColumnNames="user_id"
 		                         deferrable="false" initiallyDeferred="false" />
 

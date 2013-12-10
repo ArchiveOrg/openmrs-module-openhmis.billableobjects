@@ -36,10 +36,8 @@
 	<mappingFiles>
 		BillableEncounter.hbm.xml
 		BillableObject.hbm.xml
-		BillAssociator.hbm.xml
 		BillingHandler.hbm.xml
 		EncounterHandler.hbm.xml
-		SimpleNewBillAssociator.hbm.xml
 	</mappingFiles>
 
 	<!-- Internationalization -->
