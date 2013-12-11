@@ -27,16 +27,12 @@ public class BillingHandlerResource<T extends IBillingHandler> extends BaseRestM
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
 		description.addProperty("description");
 		description.addProperty("type");
-		if (!(rep instanceof RefRepresentation)) {
-			description.addProperty("billAssociator");
-		}
 		return description;
 	}
 
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = super.getCreatableProperties();
-		description.addProperty("billAssociator");
 		description.addProperty("type");
 		return description;
 	}
