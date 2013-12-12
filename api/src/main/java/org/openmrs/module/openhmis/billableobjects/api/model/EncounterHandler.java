@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.hibernate.LazyInitializationException;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.cashier.api.model.BillLineItem;
+import org.openmrs.module.openhmis.inventory.api.IItemDataService;
 import org.openmrs.module.openhmis.inventory.api.model.Item;
 
 public class EncounterHandler extends BaseBillingHandler<Encounter> {
@@ -30,6 +33,12 @@ public class EncounterHandler extends BaseBillingHandler<Encounter> {
 		List<BillLineItem> lineItems = new ArrayList<BillLineItem>(associatedItems.size());
 		if (encounter.getEncounterType().getUuid().equals(getEncounterType().getUuid())) {
 			for (Item item : getAssociatedItems()) {
+				// If this is run inside a daemon thread (as in eventbasedbilling)
+				// the sesion may need to be refreshed
+				try { item.getDefaultPrice().getPrice(); }
+				catch (LazyInitializationException e) {
+					item = Context.getService(IItemDataService.class).getById(item.getId());
+				}
 				BillLineItem lineItem = new BillLineItem();
 				lineItem.setItem(item);
 				lineItem.setPrice(item.getDefaultPrice().getPrice());

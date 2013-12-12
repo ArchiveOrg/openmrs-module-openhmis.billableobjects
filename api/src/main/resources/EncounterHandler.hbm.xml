@@ -10,7 +10,7 @@
 		
 		<set name="associatedItems" table="billableobj_handler_encounter_item" lazy="false">
 			<key column="handler_id" />
-			<many-to-many column="item_id" class="org.openmrs.module.openhmis.inventory.api.model.Item" />
+			<many-to-many column="item_id" class="org.openmrs.module.openhmis.inventory.api.model.Item" lazy="false" />
 		</set>
 
 	</joined-subclass>
