@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillingHandler;
 import org.reflections.Reflections;
 
 public class BillableObjectsHelper {
-
+	private static final Logger logger = Logger.getLogger(BillableObjectsHelper.class);
 	private static volatile List<String> handlerTypeNames;
 	private static volatile Map<String, Class<? extends IBillableObject>> classNameToBillableObjectTypeMap;
 	
@@ -40,16 +41,21 @@ public class BillableObjectsHelper {
 		Set<Class<? extends IBillableObject>> allClasses = reflections.getSubTypesOf(IBillableObject.class);
 
 		for (Class<? extends IBillableObject> cls : allClasses) {
-		   Annotation[] annotations = cls.getAnnotations();
-
-		   for (Annotation annotation : annotations) {
-		     if (annotation instanceof Handler) {
-		    	Handler handler = (Handler) annotation;
-		    	Class<?>[] supported = handler.supports();
-		    	for (Class<?> supportedClass : supported)
+			if (Modifier.isAbstract(cls.getModifiers())) continue;
+			Annotation[] annotations = cls.getAnnotations();
+			if (annotations.length == 0) {
+				logger.warn("Found class implementing " + IBillableObject.class.getSimpleName() + " but it does not specify a handled class: skipping.");
+				continue;
+			}
+			
+			for (Annotation annotation : annotations) {
+				if (annotation instanceof Handler) {
+					Handler handler = (Handler) annotation;
+					Class<?>[] supported = handler.supports();
+				for (Class<?> supportedClass : supported)
 		    		classNameToBillableObjectTypeMap.put(supportedClass.getName(), cls);
-		     }
-		   }
+				}
+			}
 		}
 		return classNameToBillableObjectTypeMap;
 	}

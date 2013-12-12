@@ -34,10 +34,12 @@
 	
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-		BillableEncounter.hbm.xml
 		BillableObject.hbm.xml
+		BillableEncounter.hbm.xml
+		BillableDrugOrder.hbm.xml
 		BillingHandler.hbm.xml
 		EncounterHandler.hbm.xml
+		DrugOrderHandler.hbm.xml
 	</mappingFiles>
 
 	<!-- Internationalization -->

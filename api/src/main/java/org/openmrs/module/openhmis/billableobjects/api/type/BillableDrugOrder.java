@@ -2,8 +2,10 @@ package org.openmrs.module.openhmis.billableobjects.api.type;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.Patient;
+import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 
+@Handler(supports = { DrugOrder.class })
 public class BillableDrugOrder extends BaseBillableObject<DrugOrder> {
 
 	@Override

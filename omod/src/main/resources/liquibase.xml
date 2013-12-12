@@ -39,10 +39,14 @@
 			<column name="handler_id" type="int"><constraints nullable="false"/></column>
 			<column name="encounter_type_id" type="int"><constraints nullable="false"/></column>
 		</createTable>
-		
+
 		<createTable tableName="billableobj_handler_encounter_item">
 			<column name="handler_id" type="int"><constraints nullable="false"/></column>
 			<column name="item_id" type="int"><constraints nullable="false"/></column>
+		</createTable>
+
+		<createTable tableName="billableobj_handler_drugorder">
+			<column name="handler_id" type="int"><constraints nullable="false"/></column>
 		</createTable>
 		
 		<createIndex indexName="billableobj_billableobj_bill_id_idx" tableName="billableobj_billableobj" unique="false">
@@ -58,6 +62,10 @@
 		<createIndex indexName="billableobj_handler_encounter_handler_id_idx" tableName="billableobj_handler_encounter" unique="false">
 			<column name="handler_id"/>
 		</createIndex>
+		<createIndex indexName="billableobj_handler_drugorder_handler_id_idx" tableName="billableobj_handler_drugorder" unique="false">
+			<column name="handler_id"/>
+		</createIndex>
+
 		<addPrimaryKey constraintName="billableobj_handler_encounter_item_pk"
 			columnNames="handler_id, item_id"  tableName="billableobj_handler_encounter_item" />
 		
@@ -95,6 +103,11 @@
 		                         baseTableName="billableobj_handler_encounter_item" baseColumnNames="item_id"
 		                         referencedTableName="inv_item" referencedColumnNames="item_id"
 		                         deferrable="false" initiallyDeferred="false" />		                         
+
+		<addForeignKeyConstraint constraintName="billableobj_handler_drugorder_handler_fk"
+		                         baseTableName="billableobj_handler_drugorder" baseColumnNames="handler_id"
+		                         referencedTableName="billableobj_handler" referencedColumnNames="handler_id"
+		                         deferrable="false" initiallyDeferred="false" />
 
 	</changeSet>
 </databaseChangeLog>

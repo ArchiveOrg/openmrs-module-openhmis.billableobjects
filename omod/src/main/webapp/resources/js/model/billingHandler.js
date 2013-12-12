@@ -50,21 +50,6 @@ define(
             }
         });
         
-        openhmis.BillingHandlerCollection = openhmis.GenericCollection.extend({
-        	model: openhmis.BillingHandler,
-        	add: function(models, options) {
-        		var processedModels = [];
-        		models = _.isArray(models) ? models.slice() : [models];
-        		for (i in models) {
-        			if (models[i].type && openhmis[models[i].type])
-        				processedModels.unshift(new openhmis[models[i].type](models[i])); 
-        			else
-        				processedModels.unshift(models[i]);
-        		}
-        		openhmis.GenericCollection.prototype.add.call(this, processedModels, options);
-        	}
-        });
-        
         openhmis.EncounterHandler = openhmis.BillingHandler.extend({
             meta: {
                 name: __("Encounter Handler"),
@@ -102,6 +87,27 @@ define(
             validate: function(attrs, options) {
     			if (!attrs.name) return { name: __("A name is required") };
                 return null;
+            },
+            
+        	toString: function() {
+        		return this.get("name");
+        	}
+        });
+        
+        openhmis.DrugOrderHandler = openhmis.BillingHandler.extend({
+            meta: {
+                name: __("Drug Order Handler"),
+                openmrsType: 'metadata',
+                restUrl: 'v2/billableobjects/drugorderhandlers'
+            },
+
+            schema: _.extend({}, openhmis.BillingHandler.prototype.schema, {
+            	name: 'Text',
+            	description: 'Text'
+            }),
+            
+            initialize: function(attrs, options) {
+            	this.set("type", "DrugOrderHandler", { silent: true });
             },
             
         	toString: function() {
