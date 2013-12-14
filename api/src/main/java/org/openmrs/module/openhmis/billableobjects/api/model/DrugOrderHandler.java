@@ -3,7 +3,6 @@ package org.openmrs.module.openhmis.billableobjects.api.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.openmrs.Drug;
 import org.openmrs.DrugOrder;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.billableobjects.api.util.BillingHandlerRecoverableException;
@@ -19,22 +18,23 @@ public class DrugOrderHandler extends BaseBillingHandler<DrugOrder> {
 	public List<BillLineItem> handleObject(DrugOrder drugOrder) throws BillingHandlerRecoverableException {
 		IItemDataService service = Context.getService(IItemDataService.class);
 		List<BillLineItem> lineItems = new LinkedList<BillLineItem>();
-		Drug drug = drugOrder.getDrug();
-		Item template = new Item();
-		template.setDrug(drug);
-		ItemSearch itemSearch = new ItemSearch(template);
+		ItemSearch itemSearch = new ItemSearch();
+		itemSearch.getTemplate().setDrug(drugOrder.getDrug());
 		List<Item> results = service.findItems(itemSearch, null);
+		Integer quantity = drugOrder.getQuantity();
+		if (quantity == null || quantity == 0)
+			quantity = 1;
 		for (Item item : results) {
 			BillLineItem lineItem = new BillLineItem();
 			lineItem.setItem(item);
 			lineItem.setPrice(item.getDefaultPrice().getPrice());
-			lineItem.setQuantity(1);
+			lineItem.setQuantity(quantity);
 			lineItems.add(lineItem);
 		}
 		if (lineItems.size() == 0)
-			throw new BillingHandlerRecoverableException("No item found for drug \"" + drug.getName() + ".\"", lineItems);
+			throw new BillingHandlerRecoverableException("No item found for drug \"" + drugOrder.getDrug().getName() + ".\"", lineItems);
 		if (lineItems.size() > 1)
-			throw new BillingHandlerRecoverableException("Multiple items found for drug \"" + drug.getName() + ".\"", lineItems);
+			throw new BillingHandlerRecoverableException("Multiple items found for drug \"" + drugOrder.getDrug().getName() + ".\"", lineItems);
 		return lineItems;
 	}
 	

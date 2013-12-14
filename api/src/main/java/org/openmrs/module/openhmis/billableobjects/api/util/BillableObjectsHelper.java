@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,10 +20,10 @@ public class BillableObjectsHelper {
 	private static volatile List<String> handlerTypeNames;
 	private static volatile Map<String, Class<? extends IBillableObject>> classNameToBillableObjectTypeMap;
 	
-	public static List<Class<? extends IBillingHandler>> locateHandlers() {
+	public static Set<Class<? extends IBillingHandler>> locateHandlers() {
 		// Search for any modules that define classes which implement the IBillingHandler interface
 		Reflections reflections = new Reflections("org.openmrs.module");
-		List<Class<? extends IBillingHandler>> classes = new ArrayList<Class<? extends IBillingHandler>>();
+		Set<Class<? extends IBillingHandler>> classes = new HashSet<Class<? extends IBillingHandler>>();
 		for (Class<? extends IBillingHandler> cls : reflections.getSubTypesOf(IBillingHandler.class)) {
 			// We only care about public instantiable classes so ignore others
 			if (!cls.isInterface() &&
@@ -62,7 +63,7 @@ public class BillableObjectsHelper {
 	
 	public static List<String> getHandlerTypeNames() {
 		if (handlerTypeNames == null) {
-			List<Class<? extends IBillingHandler>> classes = locateHandlers();
+			Set<Class<? extends IBillingHandler>> classes = locateHandlers();
 			handlerTypeNames = new ArrayList<String>(classes.size());
 			for (Class<? extends IBillingHandler> cls : classes) {
 				handlerTypeNames.add(cls.getSimpleName());
