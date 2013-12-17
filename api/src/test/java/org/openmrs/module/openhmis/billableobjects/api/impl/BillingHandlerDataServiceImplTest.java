@@ -1,7 +1,6 @@
 package org.openmrs.module.openhmis.billableobjects.api.impl;
 
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +10,6 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServic
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServiceTest;
 import org.openmrs.module.openhmis.billableobjects.api.TestConstants;
 import org.openmrs.module.openhmis.billableobjects.api.model.DrugOrderHandler;
-import org.openmrs.module.openhmis.billableobjects.api.util.BillableObjectsHelper;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -20,7 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(BillableObjectsHelper.class)
+@PrepareForTest(BillableObjectsServiceImpl.class)
 public class BillingHandlerDataServiceImplTest extends BaseModuleWebContextSensitiveTest {
 	IBillingHandlerDataService billingHandlerService;
 	
@@ -39,10 +37,10 @@ public class BillingHandlerDataServiceImplTest extends BaseModuleWebContextSensi
 	 */
 	@Test
 	public void save_shouldBindListenerIfObjectWasNew() throws Exception {
-		PowerMockito.mockStatic(BillableObjectsHelper.class);
+		PowerMockito.mockStatic(BillableObjectsServiceImpl.class);
 		DrugOrderHandler handler = new DrugOrderHandler();
 		handler.setName("Test");
-		billingHandlerService.save(handler);
-		verify()
+		//billingHandlerService.
+		//PowerMockito.verifyStatic(times(1));
 	}
 }

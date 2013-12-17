@@ -1,4 +1,4 @@
-package org.openmrs.module.openhmis.billableobjects.api.util;
+package org.openmrs.module.openhmis.billableobjects.api.impl;
 
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -13,13 +13,15 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
+import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillingHandler;
 import org.reflections.Reflections;
 
-public class BillingHandlerHelper {
-	private static final Logger logger = Logger.getLogger(BillingHandlerHelper.class);
+public class BillingHandlerServiceImpl extends BaseOpenmrsService implements IBillingHandlerService {
+	private static final Logger logger = Logger.getLogger(BillingHandlerServiceImpl.class);
 	private static Set<Class<? extends IBillingHandler>> billingHandlerClasses;
 	private static List<String> billingHandlerClassNames;
 	private static volatile Map<Class<?>, Set<IBillingHandler<?>>> handledClassToHandlerSetMap = new HashMap<Class<?>, Set<IBillingHandler<?>>>();
@@ -30,7 +32,7 @@ public class BillingHandlerHelper {
 	 * 
 	 * @return set of handler classes
 	 */
-	public static Set<Class<? extends IBillingHandler>> getBillingHandlerClasses() {
+	public Set<Class<? extends IBillingHandler>> getBillingHandlerClasses() {
 		if (billingHandlerClasses == null) {
 			billingHandlerClasses = new HashSet<Class<? extends IBillingHandler>>();
 			Reflections reflections = new Reflections("org.openmrs.module");
@@ -103,11 +105,11 @@ public class BillingHandlerHelper {
 	 * @return set of handled classes
 	 * @should return currently handled classes
 	 */
-	public static Set<Class<?>> getActivelyHandledClasses() {
+	public Set<Class<?>> getActivelyHandledClasses() {
 		return getHandledClassToHandlerSetMap(true).keySet();
 	}
 	
-	public static Set<IBillingHandler<?>> getHandlersForClassName(String className) {
+	public Set<IBillingHandler<?>> getHandlersForClassName(String className) {
 		return getHandledClassToHandlerSetMap().get(className);
 	}
 
@@ -117,7 +119,7 @@ public class BillingHandlerHelper {
 	 * @return list of handler class names
 	 * @should return all names in alphabetical order
 	 */
-	public static List<String> getHandlerTypeNames() {
+	public List<String> getHandlerTypeNames() {
 		if (billingHandlerClassNames == null) {
 			billingHandlerClassNames = new ArrayList<String>(getBillingHandlerClasses().size());
 			for (Class<? extends IBillingHandler> cls : getBillingHandlerClasses()) {

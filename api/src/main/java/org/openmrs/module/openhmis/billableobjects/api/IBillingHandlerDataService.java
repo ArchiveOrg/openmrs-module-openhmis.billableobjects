@@ -8,4 +8,6 @@ import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 
 public interface IBillingHandlerDataService extends IMetadataDataService<BaseBillingHandler> {
 	public <T extends BaseBillingHandler> List<T> getAll(PagingInfo pagingInfo, Class<T> clazz);
+	IBillableObjectsService getBillableObjectsService();
+	void setBillableObjectsService(IBillableObjectsService billableObjectsService);
 }

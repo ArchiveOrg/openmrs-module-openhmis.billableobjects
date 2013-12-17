@@ -21,7 +21,7 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list merge="true">
-				<value>org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService</value>
+				<value>org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService</value>
 				<ref bean="billingHandlerService" />
 			</list>
 		</property>
@@ -29,14 +29,38 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list merge="true">
-				<value>org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService</value>
+				<value>org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService</value>
+				<ref bean="billingHandlerDataService" />
+			</list>
+		</property>
+	</bean>
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list merge="true">
+				<value>org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService</value>
 				<ref bean="billableObjectService" />
+			</list>
+		</property>
+	</bean>
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list merge="true">
+				<value>org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService</value>
+				<ref bean="billableObjectDataService" />
 			</list>
 		</property>
 	</bean>
 	
 	<!-- Service Bean Definitions -->
 	<bean id="billingHandlerService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target">
+			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillingHandlerServiceImpl" />
+		</property>
+		<property name="preInterceptors" ref="serviceInterceptors" />
+		<property name="transactionAttributeSource" ref="transactionAttributeSource" />
+	</bean>
+	<bean id="billingHandlerDataService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="target">
 			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillingHandlerDataServiceImpl">
@@ -47,6 +71,16 @@
 		<property name="transactionAttributeSource" ref="transactionAttributeSource" />
 	</bean>
 	<bean id="billableObjectService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target">
+			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillableObjectsServiceImpl">
+				<property name="billingHandlerService" ref="billingHandlerService" />
+			</bean>
+		</property>
+		<property name="preInterceptors" ref="serviceInterceptors" />
+		<property name="transactionAttributeSource" ref="transactionAttributeSource" />
+	</bean>
+	<bean id="billableObjectDataService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="target">
 			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillableObjectDataServiceImpl">

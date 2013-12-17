@@ -12,11 +12,13 @@ import org.openmrs.api.context.Daemon;
 import org.openmrs.event.EventListener;
 import org.openmrs.module.DaemonToken;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService;
+import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.type.BaseBillableObject;
 
 public class BillableObjectEventListener implements EventListener, Runnable {
 	private static final Logger logger = Logger.getLogger(BillableObjectEventListener.class);
+	private static IBillableObjectsService billableObjectsService;
 	private DaemonToken daemonToken;
 	private Message message;
 
@@ -29,6 +31,7 @@ public class BillableObjectEventListener implements EventListener, Runnable {
 	
 	@Override
 	public void onMessage(Message message) {
+		billableObjectsService = Context.getService(IBillableObjectsService.class);
 		this.message = message;
 		Daemon.runInDaemonThread(this, daemonToken);
 	}
@@ -41,7 +44,7 @@ public class BillableObjectEventListener implements EventListener, Runnable {
 			String associatedUuid = mapMessage.getString("uuid");
 			
 			IBillableObject billableObject;
-			Class<? extends IBillableObject> cls = BillableObjectsHelper
+			Class<? extends IBillableObject> cls = billableObjectsService
 					.getBillableObjectTypeForClassName(className);
 			if (cls != null)
 				billableObject = cls.newInstance();

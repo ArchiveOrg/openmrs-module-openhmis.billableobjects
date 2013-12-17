@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
-import org.openmrs.module.openhmis.billableobjects.api.util.BillableObjectsHelper;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
@@ -15,6 +15,8 @@ import org.openmrs.module.openhmis.inventory.api.security.BasicMetadataAuthoriza
 
 public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<BaseBillingHandler>
 	implements IBillingHandlerDataService {
+	
+	private static IBillableObjectsService billableObjectsService;
 	
 	@Override
 	protected IMetadataAuthorizationPrivileges getPrivileges() {
@@ -26,13 +28,21 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<B
 		
 	}
 
+	/**
+	 * Save a billing handler, and if it was new and is successfully saved,
+	 * make sure a listener is bound to save the billable object metadata.
+	 * 
+	 * @param object to be saved
+	 * @return saved billing handler
+	 * @should bind listener if object was new
+	 */
 	@Override
 	public BaseBillingHandler save(BaseBillingHandler object) {
 		boolean isNew = (object.getId() == null);
 		BaseBillingHandler result = super.save(object);
 		// If a new handler is successfully saved, make sure event handlers are up to date
 		if (isNew && result != null && result.getId() != null)
-			BillableObjectsHelper.bindListenerForAllHandlers();
+			billableObjectsService.bindListenerForAllHandlers();
 		return result;
 	}
 	
@@ -47,4 +57,14 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<B
 
 		return executeCriteria(clazz, pagingInfo, null, getDefaultSort());
 	}
+
+	public IBillableObjectsService getBillableObjectsService() {
+		return billableObjectsService;
+	}
+
+	public void setBillableObjectsService(IBillableObjectsService billableObjectsService) {
+		BillingHandlerDataServiceImpl.billableObjectsService = billableObjectsService;
+	}
+	
+	
 }

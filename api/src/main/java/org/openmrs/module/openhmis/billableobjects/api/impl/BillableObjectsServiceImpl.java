@@ -1,4 +1,4 @@
-package org.openmrs.module.openhmis.billableobjects.api.util;
+package org.openmrs.module.openhmis.billableobjects.api.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
@@ -8,14 +8,18 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.event.Event;
 import org.openmrs.event.Event.Action;
 import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
+import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
+import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService;
 import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.reflections.Reflections;
 
-public class BillableObjectsHelper {
-	private static final Logger logger = Logger.getLogger(BillableObjectsHelper.class);
+public class BillableObjectsServiceImpl extends BaseOpenmrsService implements IBillableObjectsService {
+	private static final Logger logger = Logger.getLogger(BillableObjectsServiceImpl.class);
+	private static IBillingHandlerService billingHandlerService;
 	private static volatile Map<String, Class<? extends IBillableObject>> classNameToBillableObjectTypeMap;
 	
 	/**
@@ -53,19 +57,19 @@ public class BillableObjectsHelper {
 		return classNameToBillableObjectTypeMap;
 	}
 	
-	public static Class<? extends IBillableObject> getBillableObjectTypeForClassName(String className) {
+	public Class<? extends IBillableObject> getBillableObjectTypeForClassName(String className) {
 		return getClassNameToBillableObjectTypeMap().get(className);
 	}
 	
-	public static Set<String> getHandledTypeNames() {
+	public Set<String> getHandledTypeNames() {
 		return getClassNameToBillableObjectTypeMap().keySet();		
 	}
 
 	/**
 	 * @should bind all existing handlers
 	 */
-	public static void bindListenerForAllHandlers() {
-		for (Class<?> handledClass : BillingHandlerHelper.getActivelyHandledClasses()) {
+	public void bindListenerForAllHandlers() {
+		for (Class<?> handledClass : billingHandlerService.getActivelyHandledClasses()) {
 			Event.subscribe(
 					handledClass,
 					Action.CREATED.toString(), 
@@ -74,7 +78,7 @@ public class BillableObjectsHelper {
 		}
 	}
 
-	public static void unbindListenerForAllHandlers() {
+	public void unbindListenerForAllHandlers() {
 		Set<String> handledTypeNames = getHandledTypeNames();
 		for (String typeName : handledTypeNames) {
 			Class<?> cls;
@@ -91,4 +95,15 @@ public class BillableObjectsHelper {
 			);
 		}
 	}
+	
+	@Override
+	public IBillingHandlerService getBillingHandlerService() {
+		return billingHandlerService;
+	}
+
+	@Override
+	public void setBillingHandlerService(IBillingHandlerService billingHandlerService) {
+		BillableObjectsServiceImpl.billingHandlerService = billingHandlerService;
+	}
+
 }
