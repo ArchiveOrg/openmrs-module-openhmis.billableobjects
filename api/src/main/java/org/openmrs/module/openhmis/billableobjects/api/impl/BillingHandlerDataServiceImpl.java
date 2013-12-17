@@ -7,7 +7,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataService;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
-import org.openmrs.module.openhmis.billableobjects.api.util.BillableObjectEventHelper;
+import org.openmrs.module.openhmis.billableobjects.api.util.BillableObjectsHelper;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
@@ -32,7 +32,7 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<B
 		BaseBillingHandler result = super.save(object);
 		// If a new handler is successfully saved, make sure event handlers are up to date
 		if (isNew && result != null && result.getId() != null)
-			BillableObjectEventHelper.bindListenerForAllHandlers();
+			BillableObjectsHelper.bindListenerForAllHandlers();
 		return result;
 	}
 	
