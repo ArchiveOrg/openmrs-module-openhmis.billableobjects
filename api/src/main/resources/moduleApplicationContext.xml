@@ -38,7 +38,7 @@
 		<property name="moduleService">
 			<list merge="true">
 				<value>org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService</value>
-				<ref bean="billableObjectService" />
+				<ref bean="billableObjectsService" />
 			</list>
 		</property>
 	</bean>
@@ -65,12 +65,13 @@
 		<property name="target">
 			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillingHandlerDataServiceImpl">
 				<property name="repository" ref="genericRepository" />
+				<property name="billableObjectsService" ref="billableObjectsService" />
 			</bean>
 		</property>
 		<property name="preInterceptors" ref="serviceInterceptors" />
 		<property name="transactionAttributeSource" ref="transactionAttributeSource" />
 	</bean>
-	<bean id="billableObjectService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	<bean id="billableObjectsService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="target">
 			<bean class="org.openmrs.module.openhmis.billableobjects.api.impl.BillableObjectsServiceImpl">

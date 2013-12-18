@@ -34,7 +34,8 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<B
 	 * 
 	 * @param object to be saved
 	 * @return saved billing handler
-	 * @should bind listener if object was new
+	 * @should rebind listener if object was new
+	 * @should not rebind listener when updating
 	 */
 	@Override
 	public BaseBillingHandler save(BaseBillingHandler object) {
@@ -42,8 +43,38 @@ public class BillingHandlerDataServiceImpl extends BaseMetadataDataServiceImpl<B
 		BaseBillingHandler result = super.save(object);
 		// If a new handler is successfully saved, make sure event handlers are up to date
 		if (isNew && result != null && result.getId() != null)
-			billableObjectsService.bindListenerForAllHandlers();
+			billableObjectsService.rebindListenerForAllHandlers();
 		return result;
+	}
+	
+	/**
+	 * Retire a billing handler, and rebind event listener
+	 * 
+	 * @param handler to be retired
+	 * @return updated handler
+	 * @should rebind listener
+	 */
+	@Override
+	public BaseBillingHandler retire(BaseBillingHandler entity, String reason) throws APIException {
+		entity = super.retire(entity, reason);
+		if (entity.isRetired())
+			billableObjectsService.rebindListenerForAllHandlers();
+		return entity;
+	}
+	
+	/**
+	 * Unretire a billing handler, and rebind event listener
+	 * 
+	 * @param handler to be unretired
+	 * @return updated handler
+	 * @should rebind listener
+	 */
+	@Override
+	public BaseBillingHandler unretire(BaseBillingHandler entity) throws APIException {
+		entity = super.unretire(entity);
+		if (!entity.isRetired())
+			billableObjectsService.rebindListenerForAllHandlers();
+		return entity;
 	}
 	
 	@Override

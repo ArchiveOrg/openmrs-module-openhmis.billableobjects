@@ -45,7 +45,7 @@ public class BillableObjectEventListener implements EventListener, Runnable {
 			
 			IBillableObject billableObject;
 			Class<? extends IBillableObject> cls = billableObjectsService
-					.getBillableObjectTypeForClassName(className);
+					.getBillableObjectClassForClassName(className);
 			if (cls != null)
 				billableObject = cls.newInstance();
 			else

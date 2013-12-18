@@ -56,7 +56,7 @@ public class BillableObjectsActivator implements ModuleActivator, DaemonTokenAwa
 	 */
 	public void started() {
 		log.info("Event Based Billing Module started");
-		Context.getService(IBillableObjectsService.class).bindListenerForAllHandlers();
+		Context.getService(IBillableObjectsService.class).rebindListenerForAllHandlers();
 	}
 	
 	/**

@@ -6,7 +6,7 @@ import org.openmrs.module.openhmis.billableobjects.api.util.BillableObjectEventL
 
 public class BillableObjectEventListenerFactory {
 
-	private static volatile BillableObjectEventListener instance;
+	private static BillableObjectEventListener instance;
 	private static DaemonToken daemonToken; 
 
 	public static EventListener getInstance() {

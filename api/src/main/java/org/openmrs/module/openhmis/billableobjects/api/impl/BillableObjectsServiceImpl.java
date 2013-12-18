@@ -27,7 +27,7 @@ public class BillableObjectsServiceImpl extends BaseOpenmrsService implements IB
 	 * IBillableObject interface.  Search for Handler annotation on
 	 * results and map the OpenMRS class to its billable object class.
 	 * 
-	 * @return
+	 * @return generated map from class to corresponding IBillableObject
 	 */
 	private static Map<String, Class<? extends IBillableObject>> getClassNameToBillableObjectTypeMap() {
 		if (classNameToBillableObjectTypeMap == null) {
@@ -57,18 +57,19 @@ public class BillableObjectsServiceImpl extends BaseOpenmrsService implements IB
 		return classNameToBillableObjectTypeMap;
 	}
 	
-	public Class<? extends IBillableObject> getBillableObjectTypeForClassName(String className) {
+	public Class<? extends IBillableObject> getBillableObjectClassForClassName(String className) {
 		return getClassNameToBillableObjectTypeMap().get(className);
 	}
 	
-	public Set<String> getHandledTypeNames() {
+	public Set<String> getBillableClassNames() {
 		return getClassNameToBillableObjectTypeMap().keySet();		
 	}
 
 	/**
-	 * @should bind all existing handlers
+	 * @see IBillableObjectsService#rebindListenerForAllHandlers()
 	 */
-	public void bindListenerForAllHandlers() {
+	public void rebindListenerForAllHandlers() {
+		unbindListenerForAllHandlers();
 		for (Class<?> handledClass : billingHandlerService.getActivelyHandledClasses()) {
 			Event.subscribe(
 					handledClass,
@@ -79,7 +80,7 @@ public class BillableObjectsServiceImpl extends BaseOpenmrsService implements IB
 	}
 
 	public void unbindListenerForAllHandlers() {
-		Set<String> handledTypeNames = getHandledTypeNames();
+		Set<String> handledTypeNames = getBillableClassNames();
 		for (String typeName : handledTypeNames) {
 			Class<?> cls;
 			try {

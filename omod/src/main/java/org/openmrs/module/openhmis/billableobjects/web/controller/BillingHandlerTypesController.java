@@ -3,7 +3,8 @@ package org.openmrs.module.openhmis.billableobjects.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openmrs.module.openhmis.billableobjects.api.impl.BillingHandlerServiceImpl;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,7 @@ public class BillingHandlerTypesController {
 	@ResponseBody
 	public Map<String, Object> typeNames() {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("results", BillingHandlerServiceImpl.getHandlerTypeNames());
+		result.put("results", Context.getService(IBillingHandlerService.class).getHandlerTypeNames());
 		return result;
 	}
 }

@@ -26,12 +26,7 @@ public class BillingHandlerServiceImpl extends BaseOpenmrsService implements IBi
 	private static List<String> billingHandlerClassNames;
 	private static volatile Map<Class<?>, Set<IBillingHandler<?>>> handledClassToHandlerSetMap = new HashMap<Class<?>, Set<IBillingHandler<?>>>();
 
-	/**
-	 * Search for any concrete class that implements the IBillingHandler 
-	 * interface (or return cached set)
-	 * 
-	 * @return set of handler classes
-	 */
+	@Override
 	public Set<Class<? extends IBillingHandler>> getBillingHandlerClasses() {
 		if (billingHandlerClasses == null) {
 			billingHandlerClasses = new HashSet<Class<? extends IBillingHandler>>();
@@ -46,6 +41,25 @@ public class BillingHandlerServiceImpl extends BaseOpenmrsService implements IBi
 			}
 		}
 		return billingHandlerClasses;
+	}
+	
+	public Set<Class<?>> getActivelyHandledClasses() {
+		return getHandledClassToHandlerSetMap(true).keySet();
+	}
+	
+	public Set<IBillingHandler<?>> getHandlersForClassName(String className) {
+		return getHandledClassToHandlerSetMap().get(className);
+	}
+
+	public List<String> getHandlerTypeNames() {
+		if (billingHandlerClassNames == null) {
+			billingHandlerClassNames = new ArrayList<String>(getBillingHandlerClasses().size());
+			for (Class<? extends IBillingHandler> cls : getBillingHandlerClasses()) {
+				billingHandlerClassNames.add(cls.getSimpleName());
+			}
+			Collections.sort(billingHandlerClassNames);
+		}
+		return billingHandlerClassNames;
 	}
 	
 	private static Map<Class<?>, Set<IBillingHandler<?>>> getHandledClassToHandlerSetMap() {
@@ -96,37 +110,5 @@ public class BillingHandlerServiceImpl extends BaseOpenmrsService implements IBi
 		else {
 			handledClassToHandlerSetMap.get(handledClass.getName()).add(handler);
 		}
-	}
-	
-	/**
-	 * Get the list handled classes by looking up the current list of saved
-	 * handlers. 
-	 * 
-	 * @return set of handled classes
-	 * @should return currently handled classes
-	 */
-	public Set<Class<?>> getActivelyHandledClasses() {
-		return getHandledClassToHandlerSetMap(true).keySet();
-	}
-	
-	public Set<IBillingHandler<?>> getHandlersForClassName(String className) {
-		return getHandledClassToHandlerSetMap().get(className);
-	}
-
-	/**
-	 * Get alphabetically ordered list of available handler class names
-	 * 
-	 * @return list of handler class names
-	 * @should return all names in alphabetical order
-	 */
-	public List<String> getHandlerTypeNames() {
-		if (billingHandlerClassNames == null) {
-			billingHandlerClassNames = new ArrayList<String>(getBillingHandlerClasses().size());
-			for (Class<? extends IBillingHandler> cls : getBillingHandlerClasses()) {
-				billingHandlerClassNames.add(cls.getSimpleName());
-			}
-			Collections.sort(billingHandlerClassNames);
-		}
-		return billingHandlerClassNames;
 	}
 }
