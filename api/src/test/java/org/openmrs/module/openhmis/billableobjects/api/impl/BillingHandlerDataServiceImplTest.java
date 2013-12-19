@@ -11,7 +11,6 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServic
 import org.openmrs.module.openhmis.billableobjects.api.TestConstants;
 import org.openmrs.module.openhmis.billableobjects.api.model.DrugOrderHandler;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
-
 import static org.mockito.Mockito.*;
 
 public class BillingHandlerDataServiceImplTest extends BaseModuleWebContextSensitiveTest {

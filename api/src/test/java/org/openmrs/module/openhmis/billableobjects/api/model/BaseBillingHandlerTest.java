@@ -7,10 +7,11 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServic
 import org.openmrs.module.openhmis.billableobjects.api.TestConstants;
 import org.openmrs.module.openhmis.billableobjects.api.model.BaseBillingHandler;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-public class BaseBillingHandlerTest extends BaseModuleContextSensitiveTest {
+public class BaseBillingHandlerTest extends BaseModuleWebContextSensitiveTest {
 	public static final String DRUGORDER_DATASET = TestConstants.BASE_DATASET_DIR + "OrderServiceTest-drugOrdersList.xml";
 	
 	@Before
@@ -26,7 +27,6 @@ public class BaseBillingHandlerTest extends BaseModuleContextSensitiveTest {
 	 * @verifies receive event messages
 	 */
 	@Test
-	@Transactional(propagation=Propagation.REQUIRED)
 	public void onMessage_shouldReceiveEventMessages() throws Exception {
 //		EventHelper.bindAllHandlers();
 //		OrderService service = Context.getOrderService();

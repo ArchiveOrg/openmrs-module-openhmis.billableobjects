@@ -12,6 +12,7 @@ public interface IBillableObjectsService extends OpenmrsService {
 	 * 
 	 * @param className name of an OpenmrsObject class
 	 * @return corresponding IBillableObject class
+	 * @should return the IBillableObject class for a class name
 	 */
 	Class<? extends IBillableObject> getBillableObjectClassForClassName(String className);
 	
@@ -20,6 +21,7 @@ public interface IBillableObjectsService extends OpenmrsService {
 	 * implementation
 	 * 
 	 * @return set of class names
+	 * @should return classes for included IBillableObjects
 	 */
 	Set<String> getBillableClassNames();
 	
