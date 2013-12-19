@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<inv_item item_id="0" name="test 1 item" description="test description" department_id="0" default_price_id="0"
+	<inv_item item_id="0" name="test 1 item" description="test description" department_id="0" default_price_id="0" drug_id="3"
 	              creator="1" has_expiration="false" date_created="2012-01-01 00:00:00.0" retired="false" uuid="4028814B399565AA013995675A7E0001" />
 	<inv_item_code item_code_id="0" name="code 1" item_id="0" code="item 1 code"
 	                   creator="1" date_created="2012-01-01 00:00:00.0" retired="false" uuid="4028814B399565AA0139956A95ED0003" />
@@ -9,4 +9,7 @@
 
 	<inv_department department_id="0" name="Test One" description="Some test department"
 	                    creator="1" date_created="2012-01-01 00:00:00.0" retired="false" uuid="4028814B399565AA0139958CCF8D0006" />
+	<inv_item item_id="1" name="extra item" description="test description" department_id="0" default_price_id="0"
+	              creator="1" has_expiration="false" date_created="2012-01-01 00:00:00.0" retired="false" uuid="4028814B399565AA013995675A7E0002" />
+
 </dataset>

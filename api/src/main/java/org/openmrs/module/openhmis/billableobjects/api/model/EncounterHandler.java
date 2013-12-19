@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.hibernate.LazyInitializationException;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
@@ -14,8 +13,6 @@ import org.openmrs.module.openhmis.inventory.api.IItemDataService;
 import org.openmrs.module.openhmis.inventory.api.model.Item;
 
 public class EncounterHandler extends BaseBillingHandler<Encounter> {
-	private static final Logger logger = Logger.getLogger(EncounterHandler.class);
-	
 	private Integer encounterHandlerId;
 	private EncounterType encounterType;
 	private Set<Item> associatedItems;
