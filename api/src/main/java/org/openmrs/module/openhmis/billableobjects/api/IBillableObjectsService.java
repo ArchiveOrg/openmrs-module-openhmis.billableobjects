@@ -3,7 +3,7 @@ package org.openmrs.module.openhmis.billableobjects.api;
 import java.util.Set;
 
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
+import org.openmrs.module.openhmis.billableobjects.api.type.IBillableObject;
 
 public interface IBillableObjectsService extends OpenmrsService {
 	

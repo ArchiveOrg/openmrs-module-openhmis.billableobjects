@@ -20,6 +20,17 @@ public class EncounterHandler extends BaseBillingHandler<Encounter> {
 	private EncounterType encounterType;
 	private Set<Item> associatedItems;
 	
+	/**
+	 * Generate line items with associated inventory items for a particular
+	 * encounter type.
+	 * 
+	 * @param encounter Encounter to bill for
+	 * @return associated bill line items
+	 * @should throw APIException if encounter is null
+	 * @should return null for unhandled encounter type
+	 * @should return an empty list if no associated items
+	 * @should return associated line items
+	 */
 	@Override
 	public List<BillLineItem> handleObject(Encounter encounter) {
 		Set<Item> associatedItems = getAssociatedItems();

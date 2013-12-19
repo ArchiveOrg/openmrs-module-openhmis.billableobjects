@@ -1,4 +1,4 @@
-package org.openmrs.module.openhmis.billableobjects.api.model;
+package org.openmrs.module.openhmis.billableobjects.api.type;
 
 import org.openmrs.OpenmrsObject;
 import org.openmrs.Patient;

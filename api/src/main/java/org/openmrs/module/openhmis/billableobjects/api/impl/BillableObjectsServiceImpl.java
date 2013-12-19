@@ -14,7 +14,7 @@ import org.openmrs.event.Event.Action;
 import org.openmrs.module.openhmis.billableobjects.api.BillableObjectEventListenerFactory;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService;
-import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
+import org.openmrs.module.openhmis.billableobjects.api.type.IBillableObject;
 import org.reflections.Reflections;
 
 public class BillableObjectsServiceImpl extends BaseOpenmrsService implements IBillableObjectsService {

@@ -13,16 +13,16 @@ import org.openmrs.event.EventListener;
 import org.openmrs.module.DaemonToken;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectDataService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
-import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.type.BaseBillableObject;
+import org.openmrs.module.openhmis.billableobjects.api.type.IBillableObject;
 
-public class BillableObjectEventListener implements EventListener, Runnable {
-	private static final Logger logger = Logger.getLogger(BillableObjectEventListener.class);
+public class OpenmrsObjectEventListener implements EventListener, Runnable {
+	private static final Logger logger = Logger.getLogger(OpenmrsObjectEventListener.class);
 	private static IBillableObjectsService billableObjectsService;
 	private DaemonToken daemonToken;
 	private Message message;
 
-	public BillableObjectEventListener(DaemonToken token) {
+	public OpenmrsObjectEventListener(DaemonToken token) {
 		if (token != null)
 			daemonToken = token;
 		else

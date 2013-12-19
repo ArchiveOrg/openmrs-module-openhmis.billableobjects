@@ -14,8 +14,8 @@ import org.openmrs.module.openhmis.billableobjects.api.IBillableObjectsService;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerDataServiceTest;
 import org.openmrs.module.openhmis.billableobjects.api.IBillingHandlerService;
 import org.openmrs.module.openhmis.billableobjects.api.TestConstants;
-import org.openmrs.module.openhmis.billableobjects.api.model.IBillableObject;
 import org.openmrs.module.openhmis.billableobjects.api.type.BillableEncounter;
+import org.openmrs.module.openhmis.billableobjects.api.type.IBillableObject;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
 
 public class BillableObjectsServiceImplTest extends BaseModuleWebContextSensitiveTest{
