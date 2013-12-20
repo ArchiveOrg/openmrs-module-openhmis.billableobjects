@@ -48,7 +48,12 @@ public class BillingHandlerServiceImpl extends BaseOpenmrsService implements IBi
 	}
 	
 	public Set<IBillingHandler<?>> getHandlersForClassName(String className) {
-		return getHandledClassToHandlerSetMap().get(className);
+		try {
+			Class<?> cls = Class.forName(className);
+			return getHandledClassToHandlerSetMap().get(cls);			
+		} catch (ClassNotFoundException e) {
+			return null;
+		}
 	}
 
 	public List<String> getHandlerTypeNames() {
