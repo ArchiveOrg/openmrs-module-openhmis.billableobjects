@@ -26,6 +26,13 @@
 		<module>omod</module>
 	</modules>
 	
+	<scm>
+		<connection>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</connection>
+		<developerConnection>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</developerConnection>
+		<url>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</url>
+	  <tag>HEAD</tag>
+    </scm>
+    
 	<properties>
 		<openMRSVersion>1.9.4</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -157,6 +164,17 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<pushChanges>false</pushChanges>
+						<localCheckout>true</localCheckout>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
