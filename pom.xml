@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.billableobjects</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Billable Objects</name>
 	<description>Tracks bills for objects in the system, and provides interfaces to implement object-specific billing behaviour.</description>
@@ -30,7 +30,7 @@
 		<connection>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</connection>
 		<developerConnection>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</developerConnection>
 		<url>scm:git:git@github.com:icchange/openmrs-module-openhmis.billableobjects.git</url>
-	  <tag>v1.0.0</tag>
+	  <tag>HEAD</tag>
     </scm>
     
 	<properties>
