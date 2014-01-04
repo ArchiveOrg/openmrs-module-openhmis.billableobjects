@@ -58,5 +58,21 @@
 	</messages>
 	<!-- /Internationalization -->
 
+	<!-- Privileges -->
+	<privilege>
+		<name>View Billable Objects Metadata</name>
+		<description>Able to view billable objects metadata</description>
+	</privilege>
+
+	<privilege>
+		<name>Manage Billable Objects Metadata</name>
+		<description>Able to add/edit/retire billable objects metadata</description>
+	</privilege>
+
+	<privilege>
+		<name>Purge Billable Objects Metadata</name>
+		<description>Able to purge billable objects metadata</description>
+	</privilege>
+
 </module>
 
